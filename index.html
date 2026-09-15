@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17151a">
+  <title>Игра для двоих</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="app">
+    <section id="setup" class="screen">
+      <div class="logo">♡</div>
+      <h1>♡~Игра~♡</h1>
+      <p class="subtitle">Флирт-игра для двоих при просмотре фильма</p>
+
+      <div class="panel">
+        <label>Игрок 1
+          <input id="player1" value="Игрок 1" maxlength="20">
+        </label>
+        <label>Игрок 2
+          <input id="player2" value="Игрок 2" maxlength="20">
+        </label>
+
+        <label>Уровень
+          <select id="difficulty">
+            <option value="all">Все уровни</option>
+            <option value="1">1 · 🖤 Нежность</option>
+            <option value="2">2 · 🔥 Флирт</option>
+            <option value="3">3 · 😈 Ближе</option>
+          </select>
+        </label>
+
+        <button id="startBtn" class="primary">Начать игру</button>
+      </div>
+
+      <button id="movieRulesBtn" class="secondary-btn">
+        🎬 Правила фильма
+      </button>
+
+      <div id="movieRulesModal" class="modal hidden">
+        <div class="modal-overlay"></div>
+
+        <div class="modal-content">
+          <button id="closeMovieRules" class="modal-close">×</button>
+
+          <h2>🎬 Правила фильма</h2>
+
+          <div class="rules-section">
+            <h3>🥂 УРОВЕНЬ 1 — 1 ГЛОТОК</h3>
+            <ul>
+              <li>Они смотрят друг на друга дольше пары секунд → <b>1 глоток каждый.</b></li>
+              <li>Кристиан ослабляет или снимает галстук → <b>1 глоток.</b></li>
+              <li>Кристиан касается лица или волос Аны → <b>1 глоток.</b></li>
+              <li>Они берутся за руки или обнимаются → <b>1 глоток.</b></li>
+              <li>Кто-нибудь упоминает контракт → <b>1 глоток.</b></li>
+            </ul>
+          </div>
+
+          <div class="rules-section">
+            <h3>🍷 УРОВЕНЬ 2 — 2 ГЛОТКА</h3>
+            <ul>
+              <li>Кристиан и Ана целуются → <b>2 глотка каждый.</b></li>
+              <li>Они целуются в лифте → <b>2 глотка каждый.</b></li>
+              <li>Кристиан снимает рубашку → <b>2 глотка.</b></li>
+              <li>Показывают вертолёт Charlie Tango → <b>2 глотка.</b></li>
+              <li>Кристиан упоминает Red Room → <b>2 глотка.</b></li>
+            </ul>
+          </div>
+
+          <div class="rules-section">
+            <h3>🖤 УРОВЕНЬ 3 — 3 ГЛОТКА</h3>
+            <ul>
+              <li>Первый поцелуй между Кристианом и Аной → <b>3 глотка.</b></li>
+              <li>Кристиан впервые показывает Ане Red Room → <b>3 глотка.</b></li>
+              <li>Серьёзная ссора Кристиана и Аны → <b>3 глотка.</b></li>
+              <li>Финальный уход Аны → <b>3 глотка.</b></li>
+            </ul>
+          </div>
+
+          <div class="rules-section">
+            <h3>💋 «Повтори за ними»</h3>
+            <ul>
+              <li>Они берутся за руки → возьмитесь за руки или по <b>1 глотку.</b></li>
+              <li>Они обнимаются → обнимитесь или по <b>1 глотку.</b></li>
+              <li>Они целуются → поцелуйтесь или оба делают по <b>2 глотка.</b></li>
+              <li>Кристиан снимает рубашку → партнёр может снять с тебя одну вещь или ты пьёшь <b>2 глотка.</b></li>
+            </ul>
+
+            <p class="rules-note">
+              Кто первым заметил триггер — выбирает: выпить самому или назначить глоток партнёру.
+            </p>
+
+            <p class="rules-note">
+              Первый заметил поцелуй → выбирает: поцелуй или <b>2 глотка.</b>
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <p class="hint">Карточки не повторяются, пока не закончатся.<br>1 этап — 40 минут;<br>2 этап — 30 минут.</p>
+    </section>
+
+    <section id="game" class="screen hidden">
+      <header class="game-header">
+        <button id="newGameBtn" class="text-btn">Новая игра</button>
+
+        <div class="score-wrap">
+          <div id="score">0 : 0</div>
+
+          <div class="score-buttons">
+            <button id="sip1Btn" class="sip-btn">+1 мне</button>
+            <button id="sipBothBtn" class="sip-btn">+1 обоим</button>
+            <button id="sip2Btn" class="sip-btn">+1 партнёру</button>
+          
+          </div>
+        </div>
+      </header>
+
+      <div class="turn" id="turn"></div>
+
+      <article class="card">
+        <div class="card-top">
+          <span id="levelBadge" class="badge"></span>
+          <span id="typeBadge" class="badge secondary"></span>
+        </div>
+        <div id="cardText" class="card-text"></div>
+        <div id="movieHint" class="movie-hint hidden"></div>
+        <div id="penalty" class="penalty hidden"></div>
+      </article>
+
+      <div class="actions">
+        <button id="doneBtn" class="primary">Выполнено ✓</button>
+        <button id="skipBtn" class="secondary-btn">Пропустить</button>
+      </div>
+
+      <div id="feedback" class="feedback"></div>
+    </section>
+
+    <section id="finish" class="screen hidden">
+      <div class="logo">♡</div>
+      <h2>Карточки закончились</h2>
+      <p id="finishText"></p>
+      <button id="restartBtn" class="primary">Сыграть ещё раз</button>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
